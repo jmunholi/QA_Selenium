@@ -1,5 +1,11 @@
 package selenium.ecommerce.pageobjects;
 
-public class Pages {
+import selenium.ecommerce.commons.Base;
 
+public class Pages extends Base {
+
+	public void BuyNewItem(String item, int quantity) {
+		
+	}
+	
 }
