@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,13 +19,13 @@ public class Base {
 	public static WebDriver driver;
 	String url = "https://www.extra.com.br";
 
-	@BeforeClass
-	public static void startBrowser() {
+	public void startBrowser() {
 		driver = new ChromeDriver();
 	}
 
 	@Before
 	public void setURL() {
+		startBrowser();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get(url);
