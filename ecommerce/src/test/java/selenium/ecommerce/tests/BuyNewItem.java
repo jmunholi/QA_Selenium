@@ -1,5 +1,7 @@
 package selenium.ecommerce.tests;
 
+import org.junit.Test;
+
 import selenium.ecommerce.commons.Base;
 
 /* Access Ecommerce main page
@@ -15,6 +17,16 @@ import selenium.ecommerce.commons.Base;
 
 public class BuyNewItem extends Base {
 
+	String item = "Inspiron I11-3168-A10";
+	String paymentType = "Crédito";
+	int quantity = 1;
+	String email = "julianomcit@gmail.com";
+	String pass = "J977r718";
 	
-
+	@Test
+	public void buyItem() throws InterruptedException {
+		
+		buyNewItem.login(email, pass);
+		buyNewItem.buyItem(item, quantity, paymentType);
+	}
 }
