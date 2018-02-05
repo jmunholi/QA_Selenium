@@ -20,8 +20,8 @@ public class BuyNewItem extends Base {
 	String item = "Inspiron I11-3168-A10";
 	String paymentType = "Crédito";
 	int quantity = 1;
-	String email = "julianomcit@gmail.com";
-	String pass = "J977r718";
+	String email = null;
+	String pass = null;
 	
 	@Test
 	public void buyItem() throws InterruptedException {
