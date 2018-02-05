@@ -1,44 +1,39 @@
 package selenium.ecommerce.commons;
 
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
 
-import junit.framework.Assert;
+import selenium.ecommerce.pageobjects.BuyNewItemIT;
 import selenium.ecommerce.pageobjects.Pages;
-import selenium.ecommerce.tests.BuyNewItem;
 
 public class Base {
 
-	BuyNewItem buyNewItem = new BuyNewItem();
-	Pages pages = new Pages();
-	
-	public WebDriver driver;
-	String browser = "Firefox";
+	protected static BuyNewItemIT buyNewItem = new BuyNewItemIT();
+	protected static Pages pages = null;
+
+	public static WebDriver driver;
+	String url = "https://www.extra.com.br";
 
 	@BeforeClass
-	public void startBrowser() {
-		browser = browser.toUpperCase();
-		if ("FIREFOX".equals(browser)) {
-			driver = new FirefoxDriver();
-		} 
-		else 
-			if ("CHROME".equals(browser)) {
-			driver = new ChromeDriver();
-		}
-		else 
-			if ("SAFARI".equals(browser)) {
-			driver = new SafariDriver();
-		} 
-		else {
-			System.out.println("Selected browser not supported");
-			Assert.assertTrue(false);
-		}
+	public static void startBrowser() {
+		driver = new ChromeDriver();
 	}
 
-	public void setURL(String url) {
+	@Before
+	public void setURL() {
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		driver.get(url);
+	}
+
+	@After
+	public void quitBrowser() {
+		driver.quit();
 	}
 }
