@@ -62,12 +62,13 @@ public class BuyNewItemIT extends Pages {
 		// Step 1: finish purchase - Indentification
 		String identifyPath = ".//div[@data-id='content']//div[@class='concluirCompra'][1]//a[@data-id='btnComprar']";
 		waitForComponentVisible(identifyPath);
-		Thread.sleep(2000);
+		Thread.sleep(2400);
 		clickOn(identifyPath);
 
 		// Step 2: Confirm Address
 		String addressyPath = ".//div[@class='boxResumoTopo']//div[@class='boxResumoBtb'][1]//input[@data-id='endereco_salvar']";
 		waitForComponentVisible(addressyPath);
+		Thread.sleep(2400);
 		clickOn(addressyPath);
 
 		// Step 3: Select Payment
@@ -77,7 +78,7 @@ public class BuyNewItemIT extends Pages {
 	public void selectPayment(String payment) throws InterruptedException {
 
 		waitForComponentVisible(".//h2[text()='Pagamento']");
-		Thread.sleep(2300);
+		Thread.sleep(2550);
 		payment = payment.toUpperCase();
 		if (payment.equals("CRÉDITO")) {
 			closeStockPopUps();
@@ -89,11 +90,34 @@ public class BuyNewItemIT extends Pages {
 	public void closeStockPopUps() {
 		String xpath = ".//*[contains(text(),'Alerta de Estoque')]";
 		try {
-			if(!getElementText(xpath).equals(null))
+			if (!getElementText(xpath).equals(null))
 				clickOn(".//*[contains(text(),'×')]");
 			Thread.sleep(800);
 		} catch (Exception e) {
 
+		}
+	}
+
+	public void removeItemFromBag(int qtd) throws InterruptedException {
+		String QtdItens = Integer.valueOf(qtd).toString();
+
+		driver.get("https://carrinho.extra.com.br/");
+		waitForComponentVisible(".//*[@data-id='qtdeSku']");
+		String QtdItensSelected = getElementValue(".//*[@data-id='qtdeSku']");
+
+		if (QtdItens.equals("0")) {
+			clickOn(".//a[@data-id='lnkRemover']");
+			waitForComponentVisible(".//div[@class='innerCart']");
+
+			String message = getElementText(".//em[text()='Não há produtos em seu carrinho.']");
+
+			if (!message.equals("Não há produtos em seu carrinho.")) {
+				Assert.assertTrue(false);
+			} else if (!QtdItens.equals("0")) {
+				clearField(QtdItensSelected);
+				sendKeys(QtdItensSelected, QtdItens);
+				clickOn(".//body");
+			}
 		}
 	}
 }

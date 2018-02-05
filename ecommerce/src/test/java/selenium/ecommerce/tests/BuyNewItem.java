@@ -28,4 +28,15 @@ public class BuyNewItem extends Base {
 		buyNewItem.login(email, pass);
 		buyNewItem.buyItem(item, 2, paymentType);
 	}
+
+	@Test
+	public void removeItemFromBag() throws InterruptedException {
+		// The value 0 will remove item from bag, otherwise it will just decrease qtd
+		 // of itens for the selected here
+//		
+		buyNewItem.login(email, pass);
+		buyNewItem.buyItem(item, quantity, paymentType);
+		buyNewItem.removeItemFromBag(0); 
+
+	}
 }

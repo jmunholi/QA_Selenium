@@ -50,6 +50,11 @@ public class Pages extends Base {
 		return element;
 	}
 
+	public String getElementValue(String xpath) {
+		String element = driver.findElement(By.xpath(xpath)).getAttribute("value");
+		return element;
+	}
+	
 	public void clearField(String xpath) {
 		driver.findElement(By.xpath(xpath)).clear();
 	}
